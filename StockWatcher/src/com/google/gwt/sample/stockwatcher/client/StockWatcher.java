@@ -117,6 +117,7 @@ public class StockWatcher implements EntryPoint {
 				refreshWatchList();
 			}
 		};
+		//refreshes the list automatically
 		refreshTimer.scheduleRepeating(REFRESH_INTERVAL);
 
 
