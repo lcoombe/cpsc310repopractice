@@ -4,6 +4,7 @@ public class StockPrice {
 	private String symbol;
 	private double price;
 	private double change;
+	private String stockDescr;
 
 	public StockPrice() {
 	}
@@ -12,6 +13,7 @@ public class StockPrice {
 		this.symbol = symbol;
 		this.price = price;
 		this.change = change;
+		this.stockDescr = "stock";
 	}
 
 	public String getSymbol() {
@@ -36,6 +38,7 @@ public class StockPrice {
 
 	public void setPrice(double price) {
 		this.price = price;
+		
 	}
 
 	public void setChange(double change) {
