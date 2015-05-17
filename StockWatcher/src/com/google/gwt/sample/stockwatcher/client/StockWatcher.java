@@ -308,7 +308,7 @@ public class StockWatcher implements EntryPoint {
 	private void handleError(Throwable error) {
 	    Window.alert(error.getMessage());
 	    if (error instanceof NotLoggedInException) {
-	      Window.Location.replace(loginInfo.getLogoutUrl());
+	    	return null;      
 	    }
 	  }
 
