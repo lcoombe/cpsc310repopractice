@@ -1,6 +1,8 @@
 package com.google.gwt.sample.stockwatcher.client;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -52,6 +54,7 @@ public class StockWatcher implements EntryPoint {
 		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 			public void onFailure(Throwable error) {
 				handleError(error);
+				System.out.println("Error was thrown!");
 			}
 
 			public void onSuccess(LoginInfo result) {
@@ -60,6 +63,7 @@ public class StockWatcher implements EntryPoint {
 					loadStockWatcher();
 				} else {
 					loadLogin();
+					System.out.println("Things were loaded!");
 				}
 			}
 		});
@@ -279,10 +283,10 @@ public class StockWatcher implements EntryPoint {
 		// Change the color of text in the Change field based on its value.
 		String changeStyleName = "noChange";
 		if (price.getChangePercent() < -0.1f) {
-			changeStyleName = "negativeChange";
+			changeStyleName = "positiveChange";
 		}
 		else if (price.getChangePercent() > 0.1f) {
-			changeStyleName = "positiveChange";
+			changeStyleName = "negativeChange";
 		}
 
 		changeWidget.setStyleName(changeStyleName);
@@ -305,11 +309,13 @@ public class StockWatcher implements EntryPoint {
 		}
 	}
 	
+	
 	private void handleError(Throwable error) {
 	    Window.alert(error.getMessage());
 	    if (error instanceof NotLoggedInException) {
-	    	return null;      
+	      Window.Location.replace(loginInfo.getLogoutUrl());
 	    }
+
 	  }
 
 
