@@ -93,7 +93,7 @@ public class StockWatcher implements EntryPoint {
 		stocksFlexTable.getRowFormatter().addStyleName(0, "watchListHeader");
 		stocksFlexTable.getCellFormatter().addStyleName(0, 1, "watchListNumericColumn");
 		stocksFlexTable.getCellFormatter().addStyleName(0, 2, "watchListNumericColumn");
-		stocksFlexTable.getCellFormatter().addStyleName(0, 3, "watchListRemoveColumn");
+		stocksFlexTable.getCellFormatter().addStyleName(0, 3, "watchListRemoveColumn2");
 		loadStocks();
 
 		// TODO Assemble Add Stock panel.

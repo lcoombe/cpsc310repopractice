@@ -24,13 +24,19 @@ h1 {
 
     /* stock list Price and Change fields */
 .watchListNumericColumn {
-  text-align: right;
+  text-align: center;
   width:8em;
 }
 
 	/* stock list Remove Column*/
 	.watchListRemoveColumn {
 	text-align: center;
+	
+	}
+	
+		/* stock list Remove Column Edit*/
+	.watchListRemoveColumn2 {
+	text-align: left;
 	
 	}
 	
