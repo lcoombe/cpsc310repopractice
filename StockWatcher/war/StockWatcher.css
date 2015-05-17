@@ -1,5 +1,8 @@
 /* Formatting specific to the StockWatcher application */
 
+h1 {
+	color: blue;
+}
     body {
   padding: 10px;
 }
