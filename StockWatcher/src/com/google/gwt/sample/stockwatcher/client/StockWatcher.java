@@ -34,7 +34,9 @@ public class StockWatcher implements EntryPoint {
 	private Button addStockButton = new Button("Add");
 	private Label lastUpdatedLabel = new Label();
 	private ArrayList<String> stocks = new ArrayList<String>();
-
+	private StockPriceServiceAsync stockPriceSvc = GWT.create(StockPriceService.class);
+	private Label errorMsgLabel = new Label();
+	
 	private LoginInfo loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
 	private Label loginLabel = new Label(
@@ -100,8 +102,14 @@ public class StockWatcher implements EntryPoint {
 		addPanel.add(newSymbolTextBox);
 		addPanel.add(addStockButton);
 		addPanel.addStyleName("addPanel");
+		
+		//Dealing with adding style attribute to the error message label
+		//errorMsgLabel.addStyleName("errorMessage");
+		//errorMsgLabel.setVisible(false);
+		
 		// TODO Assemble Main panel.
 		mainPanel.add(signOutLink);
+		//mainPanel.add(errorMsgLabel);
 		mainPanel.add(stocksFlexTable);
 		mainPanel.add(addPanel);
 		mainPanel.add(lastUpdatedLabel);
@@ -219,19 +227,27 @@ public class StockWatcher implements EntryPoint {
 
 	//update price and change values of each new stock
 	private void refreshWatchList() {
-		final double MAX_PRICE = 100.0; // $100.00
-		final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
+		// Initialize the service proxy.
+	    if (stockPriceSvc == null) {
+	      stockPriceSvc = GWT.create(StockPriceService.class);
+	    }
 
-		StockPrice[] prices = new StockPrice[stocks.size()];
-		for (int i = 0; i < stocks.size(); i++) {
-			double price = Random.nextDouble() * MAX_PRICE;
-			double change = price * MAX_PRICE_CHANGE
-					* (Random.nextDouble() * 2.0 - 1.0);
+	     // Set up the callback object.
+	    AsyncCallback<StockPrice[]> callback = new AsyncCallback<StockPrice[]>() {
+	      public void onFailure(Throwable caught) {
+	    	  Window.alert("Error!");
+	        
+	      }
 
-			prices[i] = new StockPrice(stocks.get(i), price, change);
-		}
+	      public void onSuccess(StockPrice[] result) {
+	        updateTable(result);
+	        
+	        
+	      }
+	    };
 
-		updateTable(prices);
+	     // Make the call to the stock price service.
+	    stockPriceSvc.getPrices(stocks.toArray(new String[0]), callback);
 
 	}
 	/**
@@ -248,6 +264,7 @@ public class StockWatcher implements EntryPoint {
 			lastUpdatedLabel.setText("Last update : " 
 					+ dateFormat.format(new Date()));
 		}
+		errorMsgLabel.setVisible(false);
 	}
 
 	/**
