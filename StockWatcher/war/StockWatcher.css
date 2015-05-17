@@ -3,6 +3,12 @@
 h1 {
 	
 	color: #33ccff;
+text-shadow: 2px 2px #000000;
+}
+
+h2 {
+	color: #ff95b4;
+	text-shadow: 2px 2px #000000;
 }
     body {
   padding: 10px;
@@ -37,6 +43,7 @@ h1 {
 		/* stock list Remove Column Edit*/
 	.watchListRemoveColumn2 {
 	text-align: left;
+	text-decoration: overline;
 	
 	}
 	
